@@ -1,0 +1,156 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WWWGame.UI.Views.QuestionsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:converters="clr-namespace:WWWGame.UI.Converters"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:slideView="clr-namespace:Telerik.Windows.Controls.SlideView;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core"
+    xmlns:controls="clr-namespace:WWWGame.UI.Controls"
+    mc:Ignorable="d"
+    DataContext="{Binding Questions, Source={StaticResource Locator}}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--<shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator IsIndeterminate="{Binding IsBusy}" 
+                                 IsVisible="{Binding IsBusy}" 
+                                 Text="{Binding Message}" />
+    </shell:SystemTray.ProgressIndicator>-->
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.Resources>
+            <converters:BytesToImageConverter x:Name="BytesToImageConverter"/>
+        </Grid.Resources>
+        <!--Pivot Control-->
+        <phone:Pivot Title="{Binding TournTitle}" 
+                     ItemsSource="{Binding Questions}"
+                     SelectedIndex="{Binding SelectedQuestion, Mode=TwoWay}">
+            <phone:Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding Title}" />
+                </DataTemplate>
+            </phone:Pivot.HeaderTemplate>
+            <phone:Pivot.ItemTemplate>
+                <DataTemplate>
+                    <ScrollViewer>
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <converters:StringVisibilityConverter x:Name="StringVisibilityConverter"></converters:StringVisibilityConverter>
+                            </StackPanel.Resources>
+                            <ListBox ItemsSource="{Binding TextImages}" HorizontalAlignment="Stretch" 
+                                     HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding Data, Converter={StaticResource BytesToImageConverter}}" 
+                                           Width="150" Height="150" Stretch="Uniform" Margin="5,5,5,5" Tag="{Binding Id}"
+                                               Tap="UIElement_OnTap"></Image>
+                                        <!--</Grid>-->
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <controls:GroupBox BorderBrush="DarkGray" BorderThickness="1" Visibility="{Binding AdditionalText, Converter={StaticResource StringVisibilityConverter}}">
+                                <controls:GroupBox.Header>
+                                    <TextBlock Text="Раздаточный материал"/>
+                                </controls:GroupBox.Header>
+                                <controls:GroupBox.Content>
+                                    <TextBlock Text="{Binding AdditionalText}" TextWrapping="Wrap" />
+                                </controls:GroupBox.Content>
+                                </controls:GroupBox>
+                            <TextBlock Text="{Binding Text}" TextWrapping="Wrap"></TextBlock>
+                            <telerikPrimitives:RadExpanderControl Margin="0,5,0,0" HorizontalAlignment="Stretch">
+                                <telerikPrimitives:RadExpanderControl.Content>
+                                    <TextBlock Text="Показать ответ" HorizontalAlignment="Center"></TextBlock>
+                                </telerikPrimitives:RadExpanderControl.Content>
+                                <telerikPrimitives:RadExpanderControl.ExpandableContent>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Ответ:" HorizontalAlignment="Right"/>
+                                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,0,0,0">
+                                            <ListBox ItemsSource="{Binding AnswerImages}" HorizontalAlignment="Stretch" 
+                                     HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Data, Converter={StaticResource BytesToImageConverter}}" 
+                                           Width="150" Height="150" Stretch="Uniform" Margin="5,5,5,5"  Tag="{Binding Id}" Tap="UIElement_OnTap"></Image>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <TextBlock Text="{Binding Answer}" TextWrapping="Wrap"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="Комментарий:" Grid.Row="1" HorizontalAlignment="Right" Visibility="{Binding Comments, Converter={StaticResource StringVisibilityConverter}}"/>
+                                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Visibility="{Binding Comments, Converter={StaticResource StringVisibilityConverter}}">
+                                            <ListBox ItemsSource="{Binding CommentImages}" HorizontalAlignment="Stretch" 
+                                     HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Image Source="{Binding Data, Converter={StaticResource BytesToImageConverter}}" 
+                                           Width="150" Height="150" Stretch="Uniform" Margin="5,5,5,5"  Tag="{Binding Id}" Tap="UIElement_OnTap"></Image>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                            <TextBlock Text="{Binding Comments}" TextWrapping="Wrap"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="Источник(и):" Grid.Row="2" HorizontalAlignment="Right" Visibility="{Binding Sources, Converter={StaticResource StringVisibilityConverter}}"/>
+                                        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Sources}" TextWrapping="Wrap" Margin="5,0,0,0" Visibility="{Binding Sources, Converter={StaticResource StringVisibilityConverter}}"></TextBlock>
+                                        <TextBlock Text="Автор:" Grid.Row="3" HorizontalAlignment="Right" Visibility="{Binding Authors, Converter={StaticResource StringVisibilityConverter}}"/>
+                                        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Authors}" TextWrapping="Wrap" Margin="5,0,0,0" Visibility="{Binding Authors, Converter={StaticResource StringVisibilityConverter}}"></TextBlock>
+
+                                    </Grid>
+
+                                </telerikPrimitives:RadExpanderControl.ExpandableContent>
+                            </telerikPrimitives:RadExpanderControl>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!--<ContentControl Content="{Binding Text}" />-->
+                </DataTemplate>
+            </phone:Pivot.ItemTemplate>
+        </phone:Pivot>
+        <telerikPrimitives:RadBusyIndicator Background="#CC000000"
+                                            Content="Загрузка..."
+                                            IsRunning="{Binding IsBusy}"
+                                            AnimationStyle="AnimationStyle9"/>
+        <telerikPrimitives:RadWindow IsFullScreen="True"
+                                     x:Name="window">
+            <telerikPrimitives:RadWindow.OpenAnimation>
+                <telerik:RadScaleAnimation StartScaleX="0"
+                                               StartScaleY="0"
+                                               EndScaleX="1"
+                                               EndScaleY="1"/>
+            </telerikPrimitives:RadWindow.OpenAnimation>
+            <telerikPrimitives:RadWindow.CloseAnimation>
+                <telerik:RadScaleAnimation StartScaleX="1"
+                                               StartScaleY="1"
+                                               EndScaleX="0"
+                                               EndScaleY="0"/>
+            </telerikPrimitives:RadWindow.CloseAnimation>
+            <Grid>
+                <!--<TextBlock Text="Zoom and pan for a more detailed view"
+                           Foreground="{StaticResource PhoneAccentBrush}"
+                           Margin="0, 12, 0, 0"/>-->
+                <slideView:PanAndZoomImage ZoomMode="Free"
+                                           x:Name="panZoom"
+                                           MaximumZoom="4"/>
+            </Grid>
+        </telerikPrimitives:RadWindow>
+    </Grid>
+    
+</phone:PhoneApplicationPage>

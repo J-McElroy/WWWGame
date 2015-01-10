@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="WWWGame.UI.LeveledTournsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:ui="clr-namespace:WWWGame.UI"
+    xmlns:helpers="clr-namespace:WWWGame.UI.Helpers"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:converters="clr-namespace:WWWGame.UI.Converters"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    <Grid>
+        <Grid.Resources>
+            <converters:BoolVisibilityConverter x:Name="BoolVisibilityConverter"/>
+        </Grid.Resources>
+        <phone:LongListSelector Margin="0,0,-12,0" ItemsSource="{Binding Tourns}" Visibility="{Binding ListVisibility}"
+                            SelectionChanged="LongListSelector_OnSelectionChanged" HorizontalContentAlignment="Stretch">
+            <phone:LongListSelector.ItemTemplate>
+                <DataTemplate>
+                    <helpers:TournTemplateSelector Content="{Binding}" HorizontalContentAlignment="Stretch" >
+                        <helpers:TournTemplateSelector.SubLevel>
+                            <DataTemplate>
+                                <StackPanel Margin="0,0,0,17">
+                                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </helpers:TournTemplateSelector.SubLevel>
+                        <helpers:TournTemplateSelector.Tourn>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,17">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Title}" Grid.ColumnSpan="2" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                    <TextBlock Text="{Binding Played, StringFormat='dd-MM-yyyy'}" Grid.Row="1" Margin="20,0,0,0"></TextBlock>
+                                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                                        <TextBlock Text="Вопросов:" ></TextBlock>
+                                        <TextBlock Text="{Binding QuestionsCount}" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </helpers:TournTemplateSelector.Tourn>
+                    </helpers:TournTemplateSelector>
+                </DataTemplate>
+            </phone:LongListSelector.ItemTemplate>
+        </phone:LongListSelector>
+        <TextBlock Text="Нет элементов для отображения" Visibility="{Binding EmptyVisibility}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <ui:RetryControl Visibility="{Binding RetryVisibility}" RetryCommand="{Binding RetryCommand}"/>
+        <telerikPrimitives:RadBusyIndicator Background="#CC000000"
+                                            Content="Загрузка..."
+                                            IsRunning="{Binding IsBusy}"
+                                            Visibility="{Binding IsBusy, Converter={StaticResource BoolVisibilityConverter}}"
+                                           AnimationStyle="AnimationStyle9"/>
+    </Grid>
+</UserControl>

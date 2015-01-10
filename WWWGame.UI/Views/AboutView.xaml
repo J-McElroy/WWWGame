@@ -1,0 +1,103 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="WWWGame.UI.Views.AboutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="Что? Где? Когда?" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="О программе" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Автор:" Margin="5" FontWeight="Bold"/>
+                <TextBlock Text="Рябов Александр" Margin="5"/>
+            </StackPanel>
+            <TextBlock Text="Связаться с автором: wp.www.game@gmail.com" TextDecorations="Underline" MouseLeftButtonDown="SendMailClick" Grid.Row="1" Margin="5"/>
+            <TextBlock Text="База вопросов Интернет-клуба" TextDecorations="Underline" MouseLeftButtonDown="GoToSiteClick"
+                       HorizontalAlignment="Left" FontSize="28" Grid.Row="2" Margin="5"/>
+            <ScrollViewer x:Name="ScrollingTexFromHell" Grid.Row="3">
+                <TextBlock Text="Лицензия на использование вопросов из Базы Вопросов Интернет-клуба &quot;Что? Где? Когда?&quot;
+07.10.2010 13:23
+Интернет-клуб &quot;&quot;Что? Где? Когда?&quot;&quot; предоставляет пользователям Базы Вопросов
+право:
+
+использовать эти вопросы (1) для тренировок и проведения турниров
+местного характера при условии, что указывается с полным URL (2) их
+источник - База Вопросов Интернет-клуба &quot;Что? Где? Когда?&quot;;
+публиковать эти вопросы в традиционных и электронных средствах
+массовой информации в некоммерческих целях при условии, что указывается с
+полным URL их источник - База Вопросов Интернет-клуба &quot;Что? Где? Когда?&quot;;
+распространять любой пакет вопросов из Базы Вопросов, в том числе и
+случайно сгенерированный (3), по желанию пользователя при условии, что в
+него не вносятся посторонние вопросы, указывается с полным URL их
+источник - База Вопросов Интернет-клуба &quot;Что? Где? Когда?&quot; и прилагается
+текст данной Лицензии.
+Предупреждение:
+подавляющее большинство вопросов Базы Вопросов были играны
+или другим образом распространялись по многим городам как в СССР/СНГ, так и
+за его пределами. Подавляющее большинство вопросов Базы Вопросов собрано из
+общедоступных источников, не предохраненных авторским правом, или же с
+разрешения держателей авторского права на распространение вопросов в сети
+Интернет. В связи с этим Интернет-клуб &quot;Что? Где? Когда?&quot; не несет никакой
+ответственности за:
+
+использование вопросов Базы Вопросов в турнирах;
+корректность вопросов в Базе Вопросов;
+проблемы с авторскими правами, возникающие между пользователями Базы
+Вопросов и авторами вопросов.
+В соответствии с настоящей Лицензией НЕ ДОПУСКАЕТСЯ:
+
+внесение любых изменений в содержание этих вопросов;
+использование этих вопросов для индивидуальных или командных взносов
+пользователей в оргкомитеты турниров;
+любое использование этих вопросов без указания с полным URL их источника -
+Базы Вопросов Интернет-клуба &quot;Что? Где? Когда?&quot;;
+распространение любых пакетов из Базы Вопросов, в том числе и случайно
+сгенерированных, без приложения текста данной Лицензии;
+любое использование этих вопросов с коммерческой целью;
+использование материалов этих вопросов для написания любых текстов с
+коммерческой целью.
+
+Примечания
+
+Под словом &quot;Вопрос&quot; в данной Лицензии подразумевается полный текст
+полей &quot;Вопрос&quot;, &quot;Ответ&quot;, &quot;Источник&quot; и &quot;Автор&quot; в Базе Вопросов.
+http://db.chgk.info
+Распространение вопросов из тренировочного пакета клуба &quot;Мозговорот&quot;
+допускается только на основе Лицензии, прилагаемой к означенному пакету.
+По всем вопросам, связанным с использованием Базы Вопросов, просьба
+обращаться к Константину Кнопу.
+
+1997-2003" TextWrapping="Wrap" FontSize="14"/>
+            </ScrollViewer>
+                    
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

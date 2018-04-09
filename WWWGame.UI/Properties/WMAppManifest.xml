@@ -4,12 +4,10 @@
   <Languages xmlns="">
     <Language code="ru-RU" />
   </Languages>
-  <App xmlns="" ProductID="{6a4f30ba-89f7-4af2-9980-415f456196ad}" Title="Что? Где? Когда?" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Рябов Александр" Description="Вы любите игру &quot;Что? Где? Когда?&quot;? Хотите и сами порой поразмять мозги? Тогда это приложение для вас.&#xD;&#xA;- открытая, постоянно пополняемая база проверенных вопросов с проведенных турниров&#xD;&#xA;- возможность загрузки турниров и игры оффлайн&#xD;&#xA;- простой интерфейс, " Publisher="AleksRiabov" PublisherID="{6e852ba4-ad5b-40db-b818-d48849c6c4b1}">
+  <App xmlns="" ProductID="{6a4f30ba-89f7-4af2-9980-415f456196ad}" Title="Что? Где? Когда?" RuntimeType="Silverlight" Version="1.0.1.0" Genre="apps.normal" Author="Рябов Александр" Description="Вы любите игру &quot;Что? Где? Когда?&quot;? Хотите и сами порой поразмять мозги? Тогда это приложение для вас.&#xD;&#xA;- открытая, постоянно пополняемая база проверенных вопросов с проведенных турниров&#xD;&#xA;- возможность загрузки турниров и игры оффлайн&#xD;&#xA;- простой интерфейс, " Publisher="AleksRiabov" PublisherID="{6e852ba4-ad5b-40db-b818-d48849c6c4b1}">
     <IconPath IsRelative="true" IsResource="false">Assets\logo.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
-      <Capability Name="ID_CAP_SENSORS" />
-      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using AutoMapper;
 using GalaSoft.MvvmLight;
 using WWWGame.DataAccessLibrary;
@@ -121,6 +122,16 @@ namespace WWWGame.UI.ViewModel
         {
             //GlobalLoading.Instance.IsLoading = isBusy;
             IsBusy = isBusy;
+        }
+
+        public void CopyText()
+        {
+            try
+            {
+                Clipboard.SetText(Questions[SelectedQuestion].Text);
+            }
+            catch
+            {}
         }
     }
 }

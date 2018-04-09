@@ -19,6 +19,17 @@ namespace WWWGame.UI.Views
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            SlideTransition transition = new SlideTransition();
+            transition.Mode = SlideTransitionMode.SlideRightFadeIn;
+            PhoneApplicationPage page = (PhoneApplicationPage)((PhoneApplicationFrame)Application.Current.RootVisual).Content;
+            ITransition trans = transition.GetTransition(page);
+            trans.Completed += delegate
+            {
+                trans.Stop();
+            };
+            trans.Begin();
+
             if (e.NavigationMode == NavigationMode.Back)
             {
                 var id = (this.DataContext as TournViewModel).TournId;

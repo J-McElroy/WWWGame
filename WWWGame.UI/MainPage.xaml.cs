@@ -32,6 +32,15 @@ namespace WWWGame.UI
         // Load data for the ViewModel Items
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            SlideTransition transition = new SlideTransition();
+            transition.Mode = SlideTransitionMode.SlideRightFadeIn;
+            PhoneApplicationPage page = (PhoneApplicationPage)((PhoneApplicationFrame)Application.Current.RootVisual).Content;
+            ITransition trans = transition.GetTransition(page);
+            trans.Completed += delegate
+            {
+                trans.Stop();
+            };
+            trans.Begin();
             //if (!App.ViewModel.IsDataLoaded)
             //{
             //    App.ViewModel.LoadData();

@@ -6,6 +6,7 @@ using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -31,6 +32,17 @@ namespace WWWGame.UI.Views
                 return;
             }
             base.OnNavigatedTo(e);
+
+            SlideTransition transition = new SlideTransition();
+            transition.Mode = SlideTransitionMode.SlideRightFadeIn;
+            PhoneApplicationPage page = (PhoneApplicationPage)((PhoneApplicationFrame)Application.Current.RootVisual).Content;
+            ITransition trans = transition.GetTransition(page);
+            trans.Completed += delegate
+            {
+                trans.Stop();
+            };
+            trans.Begin();
+
             string parameterValue = NavigationContext.QueryString["param1"];
 
             int tournId;
@@ -45,10 +57,8 @@ namespace WWWGame.UI.Views
             {
                 throw new NotImplementedException();
             }
-            //App.SetProgressIndicator(true);
             (this.DataContext as QuestionsViewModel).TournId = tournId;
             (this.DataContext as QuestionsViewModel).SelectedQuestion = questionNum - 1;
-            //App.SetProgressIndicator(false);
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
@@ -60,7 +70,6 @@ namespace WWWGame.UI.Views
             var id = (this.DataContext as QuestionsViewModel).TournId;
             this.DataContext = null;
             base.OnBackKeyPress(e);
-            //Messenger.Default.Send<NavigateToPageMessage>(new NavigateToPageMessage() { PageName = "TournPage", Param = new int[] { id } });
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -82,8 +91,32 @@ namespace WWWGame.UI.Views
             
             panZoom.Source = img.Source;
             window.IsOpen = true;
+        }
 
-            //Messenger.Default.Send<NavigateToPageMessage>(new NavigateToPageMessage() { PageName = "Image", Param = new int[] { (int)img.Tag } });
+        private void CopyButton_OnClick(object sender, EventArgs e)
+        {
+            var context = (this.DataContext as QuestionsViewModel);
+            if(context == null)
+                return;
+
+            context.CopyText();
+
+            SystemTray.ProgressIndicator = new ProgressIndicator();
+            SystemTray.ProgressIndicator.Text = "Текст вопроса скопирован в буфер";
+            SystemTray.ProgressIndicator.IsIndeterminate = false;
+            SystemTray.ProgressIndicator.IsVisible = true;
+
+            var timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, 1)};
+            timer.Tick += (o, args) =>
+            {
+                SystemTray.ProgressIndicator.IsVisible = false;
+                var t = (o as DispatcherTimer);
+                if (t != null)
+                {
+                    t.Stop();
+                }
+            };
+            timer.Start();
         }
     }
 }
